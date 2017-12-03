@@ -47,21 +47,14 @@ namespace AdventOfCode {
                 int number1 = int.Parse(numbers[i]);
                 for(int j = i + 1; j < numbers.Length; j++) {
                     int number2 = int.Parse(numbers[j]);
-                    if(IsGoodDivision(number1, number2)) {
-                        System.Console.WriteLine($"{number1} {number2}");                        
+                    if(number1 % number2 == 0) {
                         return number1 / number2;
-                    } else if(IsGoodDivision(number2, number1)){
-                        System.Console.WriteLine($"{number1} {number2}");                        
+                    } else if(number2 % number1 == 0){
                         return number2 / number1;
                     }
                 }
             }
             return 0;            
-        }
-
-        private static bool IsGoodDivision(int a, int b)
-        {
-            return a % b == 0;
         }
 
         public static void Main() {
