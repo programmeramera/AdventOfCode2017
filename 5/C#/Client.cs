@@ -16,6 +16,23 @@ namespace AdventOfCode {
             }
             return steps;
         }
+
+        public static double Process2(IList<int> instructionSet){
+            var nextInstruction = 0;
+            double steps = 0;
+            while(nextInstruction <instructionSet.Count){
+                steps++;
+                var oldInstruction = nextInstruction;            
+                var offset = instructionSet[nextInstruction];
+                nextInstruction += offset;
+                if(offset >= 3){
+                    instructionSet[oldInstruction]--;
+                } else {
+                    instructionSet[oldInstruction]++;
+                }
+            }
+            return steps;
+        }
     }
     
     public static class Solution {

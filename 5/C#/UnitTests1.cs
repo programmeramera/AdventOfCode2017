@@ -20,5 +20,19 @@ namespace AdventOfCode
             // Assert
             Assert.AreEqual(5, steps);
         }
+
+        [TestMethod]
+        public void TestMethod2()
+        {
+            // Arrange
+            var instructionSet = new List<int>(){
+                0,3,0,1,-3
+            };
+            // Act
+            var steps = CPU.Process2(instructionSet);
+
+            // Assert
+            Assert.AreEqual(10, steps);
+        }
     }
 }
