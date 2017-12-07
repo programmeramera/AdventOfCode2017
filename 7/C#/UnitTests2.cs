@@ -7,7 +7,7 @@ namespace AdventOfCode
     [TestClass]
     public class UnitTests2
     {
-        [TestMethod]
+        //[TestMethod]
         public void TestMethod1()
         {
             // Arrange
@@ -17,7 +17,7 @@ namespace AdventOfCode
             // Assert
         }
 
-        [TestMethod]
+        //[TestMethod]
         public void TestMethod2()
         {
             // Arrange
