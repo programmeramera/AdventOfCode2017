@@ -14,13 +14,7 @@ namespace AdventOfCode {
 
         public int TotalWeight { 
             get {
-                var sum = Weight;
-                if(Discs != null){
-                    foreach(var disc in Discs){
-                        sum += disc.TotalWeight;
-                    }
-                }
-                return sum;
+                return Weight + Discs.Sum(disc => disc.TotalWeight);
             }
         }
 
@@ -28,12 +22,9 @@ namespace AdventOfCode {
             get {
                 bool result = true;
                 if(Discs != null){
-                    var inital = Discs[0].TotalWeight;
-                    for(int i = 1; i < Discs.Count; i++){
-                        if(inital != Discs[i].TotalWeight){
-                            result = false;
-                        }
-                    }
+                    var min = Discs.Min(d => d.TotalWeight);
+                    var max = Discs.Max(d => d.TotalWeight);
+                    result = min == max;
                 }
                 return result;
             }
@@ -41,19 +32,18 @@ namespace AdventOfCode {
 
         public void Parse(string input){
             // kozpul (59) -> shavjjt, anujsv, tnzvo
-            var instructions = input.Split(new char[] {'\t',' ','(',')','-','>',',','\r'}, StringSplitOptions.RemoveEmptyEntries);            Name = instructions[0];
-            // foreach(var instruction in instructions){
-            //     Console.WriteLine(instruction);
-            // }
-            // Console.WriteLine("===");
+            var instructions = input.Split(new char[] {'\t',' ','(',')','-','>',',','\r'}, StringSplitOptions.RemoveEmptyEntries);            
             
+            Name = instructions[0];
             Weight = int.Parse(instructions[1]);
             if(instructions.Length > 2){
                 DiscNames = new List<string>();
                 for(int i = 2; i < instructions.Length; i++){
                     DiscNames.Add(instructions[i]);
                 }
-            } 
+            }
+
+            Discs = new List<Program>(); 
         }
 
         public override string ToString(){
@@ -87,9 +77,6 @@ namespace AdventOfCode {
                 program.Parse(line);
                 programs.Add(program);
             }
-            // foreach (var program in programs){
-            //     Console.WriteLine(program);
-            // }
             Order();
         }
 
@@ -111,9 +98,7 @@ namespace AdventOfCode {
                     }
                 }
             }
-            // foreach(var entity in map){
-            //     Console.WriteLine($"{entity.Key}:{entity.Value}");
-            // }
+
             return map.OrderBy(e => e.Value).First().Key;
         }
 
@@ -121,7 +106,6 @@ namespace AdventOfCode {
             if(programs.Count == 0) return;
             
             var program = programs[0];
-            //Console.WriteLine($"Checking program {program.Name}");
             
             // First program?
             if(Root == null){
@@ -140,7 +124,6 @@ namespace AdventOfCode {
                 programs.RemoveAt(0);
                 programs.Add(program);
             }
-            //Console.WriteLine($"Root is {Root.Name}");
             
             Order();
         }
@@ -148,7 +131,6 @@ namespace AdventOfCode {
         public int CheckWeights(Program program) {
             //Console.WriteLine($"{program.Name}: {program.Weight} = {program.TotalWeight}");
             if(!program.IsBalanced){
-                Console.WriteLine(program.Name);
                 if(program.Discs != null){
                     foreach(var disc in program.Discs){
                         Console.WriteLine($"{disc.Name}: {disc.Weight} = {disc.TotalWeight}");                        
