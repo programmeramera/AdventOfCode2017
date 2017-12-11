@@ -8,15 +8,34 @@ namespace AdventOfCode {
     
     public class CPU {
         private Dictionary<string,int> registers;
+        private Dictionary<string,int> maxValuesInRegisters;
 
         public CPU(){
             registers = new Dictionary<string, int>();
+            maxValuesInRegisters = new Dictionary<string,int>();
         }
         public void Process(string input){
             var lines = input.Split(new char[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries);
             foreach(var line in lines){
                 ProcessLine(line);
+                UpdateMaxRegisters();
             }
+        }
+
+        private void UpdateMaxRegisters(){
+            foreach(var entity in registers){
+                if(!maxValuesInRegisters.ContainsKey(entity.Key)){
+                    maxValuesInRegisters[entity.Key] = entity.Value;
+                } else {
+                    if(maxValuesInRegisters[entity.Key] < entity.Value){
+                        maxValuesInRegisters[entity.Key] = entity.Value;
+                    }
+                }
+            }
+        }
+
+        public int GetMaxValueInRegisters(){
+            return maxValuesInRegisters.Max( r=> r.Value);
         }
 
         private void ProcessLine(string line){
@@ -86,6 +105,7 @@ namespace AdventOfCode {
             var cpu = new CPU();
             cpu.Process(input);
             Console.WriteLine(cpu.GetLargestValueInRegisters());
+            Console.WriteLine(cpu.GetMaxValueInRegisters());
         }
     }
 }

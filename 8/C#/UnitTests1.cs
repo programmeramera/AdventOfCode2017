@@ -31,11 +31,16 @@ c inc -20 if c == 10";
         [TestMethod]
         public void TestMethod2()
         {
-            // Arrange
+           // Arrange
+           var cpu = new CPU();
+           var expected = 10;
 
             // Act
+            cpu.Process(TEST_INPUT);
+            var actual = cpu.GetMaxValueInRegisters();
 
             // Assert
+            Assert.AreEqual(expected, actual);
         }
     }
 }
