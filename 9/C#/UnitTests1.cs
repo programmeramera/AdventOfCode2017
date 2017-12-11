@@ -38,25 +38,38 @@ namespace AdventOfCode
             "{{<!!>},{<!!>},{<!!>},{<!!>}}",    // score of 1 + 2 + 2 + 2 + 2 = 9.
             "{{<a!>},{<a!>},{<a!>},{<ab>}}"     // score of 1 + 2 = 3.
         };
-        
+
         [TestMethod]
-        public void TestMethod1()
+        public void TestGarbage1()
         {
             // Arrange
+            var parser = new Parser();
+            var input = GARBAGE[0];
+           
+            // Act
+            var score = parser.Parse(input);
+
+            // Assert
+            Assert.AreEqual(0, score);
+        }
+        
+        [TestMethod]
+        public void TestScores()
+        {
+            // Arrange
+            var parser = new Parser();
            
             // Act
 
             // Assert
-        }
-
-        [TestMethod]
-        public void TestMethod2()
-        {
-            // Arrange
-
-            // Act
-
-            // Assert
+            Assert.AreEqual(1, parser.Parse(SCORES[0]));
+            Assert.AreEqual(6, parser.Parse(SCORES[1]));
+            Assert.AreEqual(5, parser.Parse(SCORES[2]));
+            Assert.AreEqual(16, parser.Parse(SCORES[3]));
+            Assert.AreEqual(1, parser.Parse(SCORES[4]));
+            Assert.AreEqual(9, parser.Parse(SCORES[5]));
+            Assert.AreEqual(9, parser.Parse(SCORES[6]));
+            Assert.AreEqual(3, parser.Parse(SCORES[7]));
         }
     }
 }
