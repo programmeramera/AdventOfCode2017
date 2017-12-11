@@ -8,9 +8,14 @@ namespace AdventOfCode {
 
     public class Parser {
         string text;
+        int garbage;
 
+        public int GarbageCount {
+            get{ return garbage; }
+        }
         public int Parse(string text){
             this.text = text;
+            this.garbage = 0;
             return Parse(0);
         }
 
@@ -26,15 +31,24 @@ namespace AdventOfCode {
                         if(!isParsingGarbage){
                             sum += Parse(previousLevel + 1);
                         }
+                        else {
+                            this.garbage++;
+                        }
                         break;
                     case('}'):
                         if(!isParsingGarbage){                        
 //                            Console.WriteLine($"Returning with sum {sum}");
                             return sum;
+                        } else {
+                            this.garbage++;                    
                         }
                         break;
                     case('<'):
-                        isParsingGarbage = true;
+                        if(isParsingGarbage){
+                            this.garbage++;
+                        } else{
+                            isParsingGarbage = true;
+                        }
                         break;
                     case('>'):
                         isParsingGarbage = false;
@@ -42,7 +56,16 @@ namespace AdventOfCode {
                     case('!'):
                         this.text = this.text.Remove(0,1);
                         break;
+                    case(','):
+                        if(isParsingGarbage){
+                            this.garbage++;
+                        }
+                        break;
                     default:
+                        //Console.WriteLine(character);
+                        if(isParsingGarbage){
+                            this.garbage++;
+                        }
                         // character = this.text[0];
                         // this.text = this.text.Remove(0,1);
                         break;
@@ -57,6 +80,7 @@ namespace AdventOfCode {
             var input = System.IO.File.ReadAllText("../input.txt");
             var parser = new Parser();
             Console.WriteLine(parser.Parse(input));
+            Console.WriteLine(parser.GarbageCount);
         }
     }
 }

@@ -39,6 +39,16 @@ namespace AdventOfCode
             "{{<a!>},{<a!>},{<a!>},{<ab>}}"     // score of 1 + 2 = 3.
         };
 
+        string[] GARBAGE_COUNTS = {
+            "<>",                   // 0 characters.
+            "<random characters>",  // 17 characters.
+            "<<<<>",                // 3 characters.
+            "<{!>}>",               // 2 characters.
+            "<!!>",                 // 0 characters.
+            "<!!!>>",               // 0 characters.
+            @"<{o""i!a,<{i<a>"      // 10 characters
+        };
+
         [TestMethod]
         public void TestGarbage1()
         {
@@ -70,6 +80,97 @@ namespace AdventOfCode
             Assert.AreEqual(9, parser.Parse(SCORES[5]));
             Assert.AreEqual(9, parser.Parse(SCORES[6]));
             Assert.AreEqual(3, parser.Parse(SCORES[7]));
+        }
+
+        [TestMethod]
+        public void TestGarbageScores()
+        {
+            // Arrange
+            var parser = new Parser();
+           
+            // Act
+            parser.Parse(GARBAGE_COUNTS[0]);
+            
+            // Assert
+            Assert.AreEqual( 0, parser.GarbageCount);
+        }
+
+        [TestMethod]
+        public void TestGarbageScores1()
+        {
+            // Arrange
+            var parser = new Parser();
+           
+            // Act
+            parser.Parse(GARBAGE_COUNTS[1]);
+            
+            // Assert
+            Assert.AreEqual(17, parser.GarbageCount);
+        }
+
+        [TestMethod]
+        public void TestGarbageScores2()
+        {
+            // Arrange
+            var parser = new Parser();
+           
+            // Act
+            parser.Parse(GARBAGE_COUNTS[2]);
+            
+            // Assert
+            Assert.AreEqual( 3, parser.GarbageCount);
+        }
+
+        [TestMethod]
+        public void TestGarbageScores3()
+        {
+            // Arrange
+            var parser = new Parser();
+           
+            // Act
+            parser.Parse(GARBAGE_COUNTS[3]);
+            
+            // Assert
+            Assert.AreEqual( 2, parser.GarbageCount);
+        }
+
+        [TestMethod]
+        public void TestGarbageScores4()
+        {
+            // Arrange
+            var parser = new Parser();
+           
+            // Act
+            parser.Parse(GARBAGE_COUNTS[4]);
+            
+            // Assert
+            Assert.AreEqual( 0, parser.GarbageCount);
+        }
+
+        [TestMethod]
+        public void TestGarbageScores5()
+        {
+            // Arrange
+            var parser = new Parser();
+           
+            // Act
+            parser.Parse(GARBAGE_COUNTS[5]);
+            
+            // Assert
+            Assert.AreEqual( 0, parser.GarbageCount);
+        }
+
+        [TestMethod]
+        public void TestGarbageScores6()
+        {
+            // Arrange
+            var parser = new Parser();
+           
+            // Act
+            parser.Parse(GARBAGE_COUNTS[6]);
+            
+            // Assert
+            Assert.AreEqual(10, parser.GarbageCount);
         }
     }
 }
