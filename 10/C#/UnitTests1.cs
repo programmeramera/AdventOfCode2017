@@ -11,10 +11,14 @@ namespace AdventOfCode
         public void TestMethod1()
         {
             // Arrange
-           
+            var hash = new Hash(5);
+            var expected = 12;
+
             // Act
+            var actual = hash.Produce("3,4,1,5");
 
             // Assert
+            Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
